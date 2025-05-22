@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CarsBar - Your Cart</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background: #fff;
+      color: #111;
+      font-family: 'Helvetica Neue', sans-serif;
+      padding: 20px;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background-color: #000;
+      color: white;
+      margin-bottom: 30px;
+    }
+    .logo {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: white;
+    }
+    h2 {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .cart-item {
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .cart-item span {
+      font-weight: 600;
+    }
+    .empty-cart {
+      text-align: center;
+      font-style: italic;
+      color: #666;
+      margin-top: 50px;
+    }
+    button.remove-btn {
+      background: #e74c3c;
+      border: none;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button.remove-btn:hover {
+      background: #c0392b;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">CarsBar</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#cars">Models</a></li>
+      <li><a href="login.html">Login</a></li>
+    </ul>
+  </nav>
+
+  <h2>Your Cart</h2>
+  <div id="cart-container"></div>
+
+  <script>
+    function getLoggedInUser() {
+      return localStorage.getItem('loggedInUser');
+    }
+
+    function loadCart() {
+      const user = getLoggedInUser();
+      const container = document.getElementById('cart-container');
+
+      if (!user) {
+        container.innerHTML = '<p class="empty-cart">Please <a href="login.html">log in</a> to view your cart.</p>';
+        return;
+      }
+
+      const cartKey = 'cart_' + user;
+      let cart = JSON.parse(localStorage.getItem(cartKey)) || [];
+
+      if (cart.length === 0) {
+        container.innerHTML = '<p class="empty-cart">Your cart is empty.</p>';
+        return;
+      }
+
+      container.innerHTML = '';
+
+      cart.forEach((car, index) => {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'cart-item';
+        itemDiv.innerHTML = `
+          <span>${car.name}</span>
+          <span>$${car.price.toLocaleString()}</span>
+          <button class="remove-btn" onclick="removeFromCart(${index})">Remove</button>
+        `;
+        container.appendChild(itemDiv);
+      });
+    }
+
+    function removeFromCart(index) {
+      const user = getLoggedInUser();
+      if (!user) return;
+
+      const cartKey = 'cart_' + user;
+      let cart = JSON.parse(localStorage.getItem(cartKey)) || [];
+
+      cart.splice(index, 1);
+      localStorage.setItem(cartKey, JSON.stringify(cart));
+      loadCart();
+    }
+
+    loadCart();
+  </script>
+</body>
+</html>
