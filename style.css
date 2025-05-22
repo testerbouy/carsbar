@@ -19,6 +19,7 @@ body {
   padding: 20px;
   background-color: #000;
   color: white;
+  flex-wrap: wrap; /* allow wrapping on small screens */
 }
 
 .logo {
@@ -26,12 +27,14 @@ body {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 3px; /* Porsche style uppercase spacing */
+  flex-grow: 1;
 }
 
 .nav-links {
   list-style: none;
   display: flex;
   gap: 20px;
+  flex-wrap: wrap; /* allow wrapping */
 }
 
 .nav-links a {
@@ -41,6 +44,7 @@ body {
   font-weight: 300;
   text-transform: uppercase;
   letter-spacing: 2px;
+  white-space: nowrap;
 }
 
 .nav-links a:hover {
@@ -109,8 +113,8 @@ body {
 
 .car-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* smaller min width for better fit */
+  gap: 20px;
   margin-top: 40px;
 }
 
@@ -125,6 +129,7 @@ body {
 
 .car-card img {
   width: 100%;
+  height: auto; /* maintain aspect ratio */
   display: block;
 }
 
@@ -157,3 +162,50 @@ footer {
   font-style: italic; /* subtle italic footer */
   letter-spacing: 1px;
 }
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .nav-links {
+    justify-content: center;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .car-grid {
+    grid-template-columns: 1fr; /* one column for small screens */
+    gap: 15px;
+  }
+
+  .car-showcase {
+    padding: 40px 10px;
+  }
+}
+
+@media (max-width: 400px) {
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+
+  .hero p {
+    font-size: 0.9rem;
+  }
+
+  .logo {
+    font-size: 1.3em;
+  }
+}
+
