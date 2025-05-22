@@ -50,12 +50,15 @@ body {
   text-align: center;
 }
 
-.hero-text {
-  background: rgba(0, 0, 0, 0.6);
-  padding: 30px;
-  border-radius: 10px;
-  color: white;
+.hero {
+  height: 90vh;
+  background: url('Screenshot 2025-05-22 095955.png') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
+
 
 .hero h1 {
   font-size: 3rem;
