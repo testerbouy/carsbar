@@ -4,22 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CarsBar - Login</title>
+  <link rel="stylesheet" href="style.css" />
   <style>
-    /* Basic reset & font */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Helvetica Neue', sans-serif;
-    }
-
     body {
       background-color: #fff;
-      color: #111;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
+      justify-content: center;
       height: 100vh;
+      font-family: 'Helvetica Neue', sans-serif;
       letter-spacing: 2px;
     }
 
@@ -27,9 +21,10 @@
       background-color: #fafafa;
       padding: 40px 30px;
       border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
       width: 320px;
       text-align: center;
+      margin-top: 60px;
     }
 
     .login-container h2 {
@@ -108,9 +103,19 @@
 </head>
 <body>
 
+  <nav class="navbar">
+    <div class="logo">CarsBar</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#">Models</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
   <div class="login-container">
     <h2>Login</h2>
-    <form action="#" method="post">
+    <form id="loginForm">
       <label for="username">Username</label>
       <input type="text" id="username" name="username" placeholder="Enter your username" required />
 
@@ -120,9 +125,33 @@
       <button type="submit">Sign In</button>
     </form>
     <div class="signup-text">
-      Don't have an account? <a href="#">Sign Up</a>
+      Don't have an account? <a href="signup.html">Sign Up</a>
     </div>
   </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const enteredUsername = document.getElementById("username").value.trim();
+      const enteredPassword = document.getElementById("password").value.trim();
+
+      const savedUsername = localStorage.getItem("carsbar_username");
+      const savedPassword = localStorage.getItem("carsbar_password");
+
+      if (!enteredUsername || !enteredPassword) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      if (enteredUsername === savedUsername && enteredPassword === savedPassword) {
+        alert("Login successful!");
+        window.location.href = "index.html"; // redirect after login
+      } else {
+        alert("Invalid username or password.");
+      }
+    });
+  </script>
 
 </body>
 </html>
