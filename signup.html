@@ -5,8 +5,70 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Signup - CarsBar</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .login-container {
+      max-width: 350px;
+      margin: 80px auto;
+      padding: 40px;
+      background: #fafafa;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .login-container h2 {
+      margin-bottom: 25px;
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+    }
+
+    .login-container input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-style: italic;
+    }
+
+    .login-container button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      background-color: #000;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .login-container button:hover {
+      background-color: #333;
+    }
+
+    .login-container p {
+      margin-top: 15px;
+      font-size: 0.9rem;
+    }
+
+    .login-container a {
+      color: #000;
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    .login-container a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
+
   <nav class="navbar">
     <div class="logo">CarsBar</div>
     <ul class="nav-links">
@@ -20,13 +82,40 @@
 
   <div class="login-container">
     <h2>Create Account</h2>
-    <form>
-      <input type="text" placeholder="Full Name" required />
-      <input type="email" placeholder="Email" required />
-      <input type="password" placeholder="Password" required />
+    <form id="signupForm">
+      <input type="text" id="fullname" placeholder="Full Name" required />
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required />
       <button type="submit" class="btn">Sign Up</button>
       <p>Already have an account? <a href="login.html">Log in here</a></p>
     </form>
   </div>
+
+  <script>
+    document.getElementById("signupForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("fullname").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      if (!name || !email || !password) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      // Save to localStorage
+      const user = {
+        name: name,
+        email: email,
+        password: password
+      };
+
+      localStorage.setItem("carsbar-user", JSON.stringify(user));
+      alert("Account created! You can now log in.");
+      window.location.href = "login.html";
+    });
+  </script>
+
 </body>
 </html>
